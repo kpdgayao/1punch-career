@@ -1,0 +1,6 @@
+streamlit
+python-dotenv
+uuid
+PyPDF2
+anthropic
+weasyprint
