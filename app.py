@@ -57,7 +57,113 @@ def process_resume_data(resume_text):
         system_prompt = """
         <html>
         <head>
-            <link rel="stylesheet" type="text/css" href="style.css">
+            <style>
+            /* General Styling */
+            body {
+                font-family: "Segoe UI", Arial, sans-serif;
+                font-size: 11px;
+                line-height: 1.5;
+                margin: 30px;
+                color: #333;
+                background-color: #fff;
+            }
+
+            /* Heading Styling */
+            h1 {
+                font-size: 24px;
+                font-weight: 700;
+                margin-bottom: 30px;
+                color: #1a1a1a;
+                text-align: center;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            h2 {
+                font-size: 18px;
+                font-weight: 600;
+                margin-top: 40px;
+                margin-bottom: 15px;
+                color: #333;
+                padding-bottom: 5px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            h3 {
+                font-size: 14px;
+                font-weight: 500;
+                margin-top: 30px;
+                margin-bottom: 10px;
+                color: #555;
+                text-transform: uppercase;
+            }
+
+            /* Paragraph and List Styling */
+            p {
+                margin-bottom: 20px;
+                text-align: justify;
+            }
+
+            ul, ol {
+                margin-bottom: 20px;
+                padding-left: 20px;
+            }
+
+            li {
+                margin-bottom: 5px;
+            }
+
+            /* Emphasis Styling */
+            strong {
+                font-weight: 600;
+            }
+
+            em {
+                font-style: italic;
+            }
+
+            /* Score Item Styling */
+            .scores {
+                margin-bottom: 40px;
+                padding: 20px;
+                background-color: #f9f9f9;
+                border-radius: 5px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            }
+
+            .score-item {
+                margin-bottom: 10px;
+                padding-left: 0;
+            }
+
+            /* Disclaimer and Confidential Styling */
+            .disclaimer, .confidential {
+                font-size: 10px;
+                color: #777;
+                margin-top: 50px;
+                padding: 15px;
+                background-color: #f5f5f5;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+            }
+
+            .confidential {
+                margin-top: 20px;
+                font-style: italic;
+            }
+
+            /* Print Styling */
+            @media print {
+                body {
+                    background-color: #fff;
+                }
+
+                .scores {
+                    box-shadow: none;
+                    border: 1px solid #ddd;
+                }
+            }
+            </style>
         </head>
         <body>
             <h1>Resume Analysis Report</h1>
