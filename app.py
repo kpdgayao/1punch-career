@@ -230,7 +230,7 @@ def process_resume_data(resume_text):
         """
 
         messages = [
-            {"role": "user", "content": f"Resume Text:\n{resume_text}\n\nPlease analyze the resume and generate a report using the provided HTML/CSS template. Do not include any introductory text or preamble before the report."}
+            {"role": "user", "content": f"Resume Text:\n{resume_text}\n\nPlease analyze the resume and generate a report using the provided HTML/CSS template. Do not include any introductory text or preamble before the report. Always add the template disclaimer and confidentiality notice at the end of the report"}
         ]
 
         response = client.messages.create(
