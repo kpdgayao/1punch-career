@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 import uuid
 import io
@@ -53,76 +54,177 @@ def process_resume_data(resume_text):
         anthropic_api_key = os.getenv("ANTHROPIC_API_KEY")
         client = anthropic.Client(api_key=anthropic_api_key)
 
-        # Define the system prompt with the provided template
         system_prompt = """
-        You are an AI-powered career planning and resume analysis assistant named 1Punch Resume GPT. Your purpose is to review resumes focused on business and accounting careers, provide a score based on a set of criteria, and offer personalized career advice to help applicants improve their resumes and advance their careers.
-        When a user submits their resume, you will analyze it using the following criteria:
-        1.	Overall Presentation and Formatting
-        2.	Contact Information
-        3.	Career Objective or Summary
-        4.	Education
-        5.	Work Experience
-        6.	Skills and Certifications
-        7.	Achievements and Awards
-        8.	Extracurricular Activities and Organizations
-        9.	Overall Content Quality
-        10.	Customization and Relevance
-        For each category, provide a score between 1 and 5, with 1 being poor and 5 being excellent. Based on the individual scores and the overall assessment, generate a personalized report that includes suggestions for improvement and career advice tailored to the user's goals and target industry.
-        If the applicant has not yet taken the 1Punch Inc. Certified Accounting Technician (CAT) program or other relevant certifications, suggest that they consider enrolling in the CAT program to enhance their resume and improve their career prospects. Highlight the benefits of the CAT program, such as gaining globally recognized technical accounting skills, increasing their value to potential employers, and achieving professional status.
-        The report should be formatted using HTML/CSS for easy conversion to PDF and printing. Use the following template:
-        html
-        Copy code
-        <!DOCTYPE html>
-        <html lang="en">
+        <html>
         <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>1Punch Resume GPT Analysis Report</title>
             <style>
-                /* Add your CSS styles here */
+                body {
+                font-family: Arial, sans-serif;
+                font-size: 12px;
+                line-height: 1.5;
+                margin: 0;
+                padding: 20px;
+                color: #333;
+                background-color: #f9f9f9;
+            }
+
+            h1 {
+                font-size: 28px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                color: #1a237e;
+                text-align: center;
+                text-transform: uppercase;
+            }
+
+            h2 {
+                font-size: 20px;
+                font-weight: bold;
+                margin-top: 30px;
+                margin-bottom: 10px;
+                color: #1565c0;
+                border-bottom: 2px solid #1565c0;
+                padding-bottom: 5px;
+            }
+
+            h3 {
+                font-size: 16px;
+                font-weight: bold;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                color: #1976d2;
+            }
+
+            p {
+                margin-bottom: 15px;
+            }
+
+            ul, ol {
+                margin-bottom: 15px;
+                padding-left: 30px;
+            }
+
+            li {
+                margin-bottom: 10px;
+            }
+
+            strong {
+                font-weight: bold;
+                color: #1a237e;
+            }
+
+            em {
+                font-style: italic;
+                color: #1565c0;
+            }
+
+            .scores {
+                margin-bottom: 30px;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+
+            .score-item {
+                margin-bottom: 10px;
+                padding-left: 10px;
+                border-left: 3px solid #1976d2;
+            }
+
+            .disclaimer {
+                font-size: 10px;
+                color: #777;
+                margin-top: 50px;
+                padding: 10px;
+                background-color: #f1f1f1;
+                border-radius: 5px;
+            }
+
+            .confidential {
+                font-size: 10px;
+                color: #777;
+                margin-top: 10px;
+                padding: 10px;
+                background-color: #f1f1f1;
+                border-radius: 5px;
+            }
+
+            @media print {
+                body {
+                    background-color: #fff;
+                }
+
+                .disclaimer,
+                .confidential {
+                    background-color: #fff;
+                    border: 1px solid #ccc;
+                }
+            }
             </style>
         </head>
         <body>
-            <header>
-                <h1>1Punch Resume GPT Analysis Report</h1>
-                <p>Prepared by 1Punch Resume GPT</p>
-            </header>
-            <main>
-                <section>
-                    <h2>User Initials: [User Initials]</h2>
-                    <h3>Scores (1-lowest; 5-highest)</h3>
-                    <ul>
-                        <li>Overall Presentation and Formatting: [Score]</li>
-                        <li>Contact Information: [Score]</li>
-                        <li>Career Objective or Summary: [Score]</li>
-                        <li>Education: [Score]</li>
-                        <li>Work Experience: [Score]</li>
-                        <li>Skills and Certifications: [Score]</li>
-                        <li>Achievements and Awards: [Score]</li>
-                        <li>Extracurricular Activities and Organizations: [Score]</li>
-                        <li>Overall Content Quality: [Score]</li>
-                        <li>Customization and Relevance: [Score]</li>
-                    </ul>
-                    <h3>Suggestions for Improvement</h3>
-                    <p>[Suggestions for Improvement]</p>
-                    <h3>Career Advice</h3>
-                    <p>[Career Advice]</p>
-                    <h3>1Punch Inc. Certified Accounting Technician (CAT) Program</h3>
-                    <p>[Suggest enrolling in the CAT program if applicable, and highlight its benefits]</p>
-                </section>
-            </main>
-            <footer>
-                <p>Disclaimer: This report is generated based on the information provided in the resume and should be used as a guidance tool only. The user is responsible for making final decisions regarding their career and resume.</p>
-                <p>Confidentiality Notice: This report is confidential and intended solely for the use of the individual named above. If you are not the intended recipient, you are notified that disclosing, copying, distributing, or taking any action in reliance on the contents of this information is strictly prohibited.</p>
-            </footer>
+            <h1>1Punch Resume GPT Analysis Report</h1>
+            <p>Prepared by 1Punch Inc.</p>
+
+            <h2>User Initials: [User Initials]</h2>
+
+            <h3>Scores:</h3>
+            <ol class="scores">
+                <li class="score-item">Overall Presentation and Formatting: [Score]</li>
+                <li class="score-item">Contact Information: [Score]</li>
+                <li class="score-item">Career Objective or Summary: [Score]</li>
+                <li class="score-item">Education: [Score]</li>
+                <li class="score-item">Work Experience: [Score]</li>
+                <li class="score-item">Skills and Certifications: [Score]</li>
+                <li class="score-item">Achievements and Awards: [Score]</li>
+                <li class="score-item">Extracurricular Activities and Organizations: [Score]</li>
+                <li class="score-item">Overall Content Quality: [Score]</li>
+                <li class="score-item">Customization and Relevance: [Score]</li>
+            </ol>
+
+            <h3>Feedback:</h3>
+            <p>[Provide specific, actionable feedback for each category. Be direct but constructive. Offer clear examples and suggestions for improvement. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
+
+            <h3>Strengths:</h3>
+            <p>[Highlight 2-3 key strengths of the resume. Focus on unique selling points, impactful achievements, and relevant skills/experience. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
+
+            <h3>Areas for Improvement:</h3>
+            <p>[Identify 2-3 critical areas where the resume falls short. Provide targeted recommendations to address these weaknesses and elevate the resume's impact. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
+
+            <h3>ATS Optimization:</h3>
+            <p>[Assess how well the resume is optimized for Applicant Tracking Systems (ATS). Offer tips to improve keyword relevance, formatting, and overall ATS compatibility. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
+
+            <h3>Target Industry/Role Alignment:</h3>
+            <p>[Evaluate how effectively the resume aligns with the candidate's target industry and desired roles. Suggest ways to better tailor the content and messaging to resonate with employers in their chosen field. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
+
+            <h3>Career Trajectory Insights:</h3>
+            <p>[Based on the candidate's education, skills, and experience, provide insights into potential career paths, growth opportunities, and any skill gaps or areas for professional development. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
+
+            <h3>1Punch CAT Program Recommendation:</h3>
+            <p>[If the candidate has not completed the 1Punch Certified Accounting Technician (CAT) program and could benefit from this credential, emphasize the advantages of enrolling. Explain how the CAT program can boost their resume, expand their knowledge, and open up new career possibilities. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
+
+            <h3>Customized Career Advice:</h3>
+            <p>[Offer 2-3 personalized career tips based on the candidate's unique profile and aspirations. This could include networking strategies, skill-building ideas, job search advice, or interview preparation tips. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
+
+            <h3>Next Steps:</h3>
+            <p>[Provide a concise summary of the most important actions the candidate should take to improve their resume and advance their career. Encourage them to stay proactive, adaptable, and committed to professional growth. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
+
+            <p class="disclaimer">Disclaimer: This report is based solely on the information provided in the candidate's resume. The insights and recommendations offered are for guidance purposes only. The candidate is ultimately responsible for all career decisions and outcomes.</p>
+
+            <p class="confidential">Confidentiality Notice: This report is confidential and intended solely for the use of the individual candidate. Unauthorized disclosure, copying, distribution, or reliance on the contents herein is strictly prohibited.</p>
         </body>
         </html>
-        Remember, your goal is to provide valuable insights and actionable advice while maintaining the confidentiality of the user's personal information. Use only the user's initials as a reference and do not store any personally identifiable information.
 
+        [IMPORTANT INSTRUCTIONS]
+        - Start the report directly with the "1Punch Resume GPT Analysis Report" heading.
+        - For sections that require lists (e.g., Feedback, Strengths, Areas for Improvement), use appropriate HTML tags such as <ul>, <ol>, and <li> to create properly formatted lists.
+        - Use other relevant HTML tags like <strong>, <em>, and <br> to format and structure the content effectively.
+        - Ensure that the scores, feedback, and recommendations are specific, actionable, and aligned with the candidate's resume and career aspirations.
         """
 
         messages = [
-            {"role": "user", "content": f"Resume Text:\n{resume_text}\n\nPlease analyze the resume and generate a report."}
+            {"role": "user", "content": f"Resume Text:\n{resume_text}\n\nPlease analyze the resume and generate a report using the provided HTML/CSS template. Do not include any introductory text or preamble before the report."}
         ]
 
         response = client.messages.create(
@@ -133,6 +235,8 @@ def process_resume_data(resume_text):
         )
 
         report = response.content[0].text
+        print(f"Generated Report: {report}")  # Print the generated report for debugging
+
         return report
 
     except anthropic.BadRequestError as e:
@@ -176,8 +280,13 @@ def html_to_pdf(report):
         # Create an HTML object from the report string
         html = HTML(string=report)
 
-        # Generate the PDF from the HTML
-        pdf_bytes = html.write_pdf()
+        # Load the external CSS file
+        css_path = Path("styles.css")
+        with open(css_path, "r", encoding="utf-8") as file:
+            css = file.read()
+
+        # Generate the PDF from the HTML and CSS
+        pdf_bytes = html.write_pdf(stylesheets=[CSS(string=css)])
 
         return pdf_bytes
     except Exception as e:
