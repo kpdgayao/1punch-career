@@ -60,59 +60,59 @@ def process_resume_data(resume_text):
             <style>
             /* General Styling */
             body {
-                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* More modern font choice */
-                font-size: 14px;  /* Slightly larger for readability */
-                line-height: 1.6; /* Improved line height for better readability */
-                margin: 20px;   /* Margins on all sides for breathing room */
+                font-family: "Segoe UI", Arial, sans-serif;
+                font-size: 16px;
+                line-height: 1.6;
+                margin: 30px;
                 color: #333;
-                background-color: #fff; /* White background for a clean look */
+                background-color: #f5f5f5;
             }
 
             /* Heading Styling */
             h1 {
-                font-size: 32px;    
-                font-weight: 600;     /* Slightly less bold */
-                margin-bottom: 20px;  /* More space below main heading */
-                color: #007bff;     /* Blue accent color */
+                font-size: 36px;
+                font-weight: 700;
+                margin-bottom: 30px;
+                color: #1a1a1a;
                 text-align: center;
-                text-transform: none; /* Remove uppercase for a more refined look */
             }
 
             h2 {
-                font-size: 24px;
+                font-size: 28px;
                 font-weight: 600;
-                margin-top: 40px;
-                margin-bottom: 15px;
-                color: #333; /* Darker color for contrast */
-                border-bottom: 2px solid #eee; /* Subtle border */
+                margin-top: 50px;
+                margin-bottom: 20px;
+                color: #333;
+                padding-bottom: 10px;
+                border-bottom: 2px solid #ddd;
             }
 
             h3 {
-                font-size: 18px;
-                font-weight: 500;  /* Slightly lighter weight */
-                margin-top: 30px;
-                margin-bottom: 10px;
-                color: #555;       /* Gray for section headings */
+                font-size: 22px;
+                font-weight: 500;
+                margin-top: 40px;
+                margin-bottom: 15px;
+                color: #555;
             }
 
             /* Paragraph and List Styling */
             p {
-                margin-bottom: 20px;
-                text-align: justify; /* Justify text for a more formal look */
+                margin-bottom: 25px;
+                text-align: justify;
             }
 
             ul, ol {
-                margin-bottom: 20px;
-                padding-left: 40px; /* Increase indentation for lists */
+                margin-bottom: 25px;
+                padding-left: 30px;
             }
 
             li {
-                margin-bottom: 5px;
+                margin-bottom: 10px;
             }
 
             /* Emphasis Styling */
             strong {
-                font-weight: 600; /* Consistent bold style */
+                font-weight: 600;
             }
 
             em {
@@ -121,34 +121,49 @@ def process_resume_data(resume_text):
 
             /* Score Item Styling */
             .scores {
-                margin-bottom: 40px;
-                padding: 25px; 
-                background-color: #f8f9fa; /* Light gray background */
-                border: 1px solid #eee;  /* Subtle border */
-                border-radius: 8px;       /* Softer corners */
+                margin-bottom: 50px;
+                padding: 30px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             }
 
             .score-item {
-                margin-bottom: 15px;
-                padding-left: 15px;
-                border-left: 4px solid #007bff;  /* Blue accent */
+                margin-bottom: 20px;
+                padding-left: 20px;
+                position: relative;
+            }
+
+            .score-item::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 5px;
+                width: 8px;
+                height: 8px;
+                background-color: #007bff;
+                border-radius: 50%;
             }
 
             /* Disclaimer and Confidential Styling */
             .disclaimer, .confidential {
-                font-size: 12px;
-                color: #6c757d;  /* Gray for legal text */
-                margin-top: 50px;
-                padding: 15px;
-                background-color: #fff; 
-                border: 1px solid #dee2e6; /* Light gray border */
-                border-radius: 8px;
+                font-size: 14px;
+                color: #777;
+                margin-top: 60px;
+                padding: 20px;
+                background-color: #f9f9f9;
+                border-radius: 10px;
             }
 
             /* Print Styling */
             @media print {
                 body {
                     background-color: #fff;
+                }
+
+                .scores {
+                    box-shadow: none;
+                    border: 1px solid #ddd;
                 }
             }
             </style>
