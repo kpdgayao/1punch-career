@@ -61,7 +61,7 @@ def process_resume_data(resume_text):
             /* General Styling */
             body {
                 font-family: "Segoe UI", Arial, sans-serif;
-                font-size: 16px;
+                font-size: 14px;
                 line-height: 1.6;
                 margin: 30px;
                 color: #333;
@@ -70,7 +70,7 @@ def process_resume_data(resume_text):
 
             /* Heading Styling */
             h1 {
-                font-size: 36px;
+                font-size: 32px;
                 font-weight: 700;
                 margin-bottom: 30px;
                 color: #1a1a1a;
@@ -78,7 +78,7 @@ def process_resume_data(resume_text):
             }
 
             h2 {
-                font-size: 28px;
+                font-size: 24px;
                 font-weight: 600;
                 margin-top: 50px;
                 margin-bottom: 20px;
@@ -88,7 +88,7 @@ def process_resume_data(resume_text):
             }
 
             h3 {
-                font-size: 22px;
+                font-size: 20px;
                 font-weight: 500;
                 margin-top: 40px;
                 margin-bottom: 15px;
@@ -130,24 +130,12 @@ def process_resume_data(resume_text):
 
             .score-item {
                 margin-bottom: 20px;
-                padding-left: 20px;
-                position: relative;
-            }
-
-            .score-item::before {
-                content: "";
-                position: absolute;
-                left: 0;
-                top: 5px;
-                width: 8px;
-                height: 8px;
-                background-color: #007bff;
-                border-radius: 50%;
+                padding-left: 0;
             }
 
             /* Disclaimer and Confidential Styling */
             .disclaimer, .confidential {
-                font-size: 14px;
+                font-size: 12px;
                 color: #777;
                 margin-top: 60px;
                 padding: 20px;
