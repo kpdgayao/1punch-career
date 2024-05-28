@@ -57,116 +57,10 @@ def process_resume_data(resume_text):
         system_prompt = """
         <html>
         <head>
-            <style>
-            /* General Styling */
-            body {
-                font-family: "Segoe UI", Arial, sans-serif;
-                font-size: 11px;
-                line-height: 1.5;
-                margin: 30px;
-                color: #333;
-                background-color: #fff;
-            }
-
-            /* Heading Styling */
-            h1 {
-                font-size: 24px;
-                font-weight: 700;
-                margin-bottom: 30px;
-                color: #1a1a1a;
-                text-align: center;
-                text-transform: uppercase;
-                letter-spacing: 1px;
-            }
-
-            h2 {
-                font-size: 18px;
-                font-weight: 600;
-                margin-top: 40px;
-                margin-bottom: 15px;
-                color: #333;
-                padding-bottom: 5px;
-                border-bottom: 1px solid #ddd;
-            }
-
-            h3 {
-                font-size: 14px;
-                font-weight: 500;
-                margin-top: 30px;
-                margin-bottom: 10px;
-                color: #555;
-                text-transform: uppercase;
-            }
-
-            /* Paragraph and List Styling */
-            p {
-                margin-bottom: 20px;
-                text-align: justify;
-            }
-
-            ul, ol {
-                margin-bottom: 20px;
-                padding-left: 20px;
-            }
-
-            li {
-                margin-bottom: 5px;
-            }
-
-            /* Emphasis Styling */
-            strong {
-                font-weight: 600;
-            }
-
-            em {
-                font-style: italic;
-            }
-
-            /* Score Item Styling */
-            .scores {
-                margin-bottom: 40px;
-                padding: 20px;
-                background-color: #f9f9f9;
-                border-radius: 5px;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-            }
-
-            .score-item {
-                margin-bottom: 10px;
-                padding-left: 0;
-            }
-
-            /* Disclaimer and Confidential Styling */
-            .disclaimer, .confidential {
-                font-size: 10px;
-                color: #777;
-                margin-top: 50px;
-                padding: 15px;
-                background-color: #f5f5f5;
-                border: 1px solid #ddd;
-                border-radius: 5px;
-            }
-
-            .confidential {
-                margin-top: 20px;
-                font-style: italic;
-            }
-
-            /* Print Styling */
-            @media print {
-                body {
-                    background-color: #fff;
-                }
-
-                .scores {
-                    box-shadow: none;
-                    border: 1px solid #ddd;
-                }
-            }
-            </style>
+            <link rel="stylesheet" type="text/css" href="style.css">
         </head>
         <body>
-            <h1>1Punch Resume GPT Analysis Report</h1>
+            <h1>Resume Analysis Report</h1>
             <p>Prepared by 1Punch Inc.</p>
 
             <h2>User Initials: [User Initials]</h2>
@@ -212,9 +106,13 @@ def process_resume_data(resume_text):
             <h3>Next Steps:</h3>
             <p>[Provide a concise summary of the most important actions the candidate should take to improve their resume and advance their career. Encourage them to stay proactive, adaptable, and committed to professional growth. Use HTML tags to format the content, such as <strong>, <em>, <ul>, <ol>, <li> for lists, and <br> for line breaks.]</p>
 
-            <p class="disclaimer">Disclaimer: This report is based solely on the information provided in the candidate's resume. The insights and recommendations offered are for guidance purposes only. The candidate is ultimately responsible for all career decisions and outcomes.</p>
+            <div class="disclaimer">
+                <p><strong>Disclaimer:</strong> This report is based solely on the information provided in the candidate's resume. The insights and recommendations offered are for guidance purposes only. The candidate is ultimately responsible for all career decisions and outcomes.</p>
+            </div>
 
-            <p class="confidential">Confidentiality Notice: This report is confidential and intended solely for the use of the individual candidate. Unauthorized disclosure, copying, distribution, or reliance on the contents herein is strictly prohibited.</p>
+            <div class="confidential">
+                <p><strong>Confidentiality Notice:</strong> This report is confidential and intended solely for the use of the individual candidate. Unauthorized disclosure, copying, distribution, or reliance on the contents herein is strictly prohibited.</p>
+            </div>
         </body>
         </html>
 
