@@ -4,3 +4,4 @@ uuid
 PyPDF2
 anthropic
 weasyprint
+supabase
