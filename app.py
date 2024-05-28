@@ -235,7 +235,7 @@ def process_resume_data(resume_text):
 
         response = client.messages.create(
             model="claude-3-sonnet-20240229",
-            max_tokens=2000,
+            max_tokens=3000,
             system=system_prompt,
             messages=messages
         )
