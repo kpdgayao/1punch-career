@@ -1,1 +1,2 @@
-apt install -y libpangocairo-1.0-0 libpango-1.0-0
+python3-dev
+build-essential
